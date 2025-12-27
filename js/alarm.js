@@ -35,7 +35,7 @@ function renderAlarms() {
 }
 
 // Récupération des alarmes depuis la base au chargement
-fetch("get_alarms.php")
+fetch("../get_alarms.php")
     .then(res => res.json())
     .then(data => {
         data.forEach(alarmDB => {
@@ -60,7 +60,7 @@ fetch("get_alarms.php")
         renderAlarms();
     });
 
-// --- 2️⃣ Ajouter une alarme dans la base ---
+// Ajouter une alarme dans la base
 document.getElementById("add-alarm").addEventListener("click", () => {
     const time = document.getElementById("alarm-time").value;
     const message = document.getElementById("alarm-message").value;
@@ -68,7 +68,7 @@ document.getElementById("add-alarm").addEventListener("click", () => {
     if (!time || !message) return;
 
     // Envoyer au serveur
-    fetch("add_alarm.php", {
+    fetch("../add_alarm.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: `time=${time}&message=${message}`
@@ -95,7 +95,7 @@ document.getElementById("add-alarm").addEventListener("click", () => {
     });
 });
 
-// --- 3️⃣ Vérification périodique des alarmes ---
+// Vérification périodique des alarmes ---
 setInterval(() => {
     const now = new Date();
 
@@ -110,7 +110,7 @@ setInterval(() => {
 
             // Mise à jour de la base
             if (alarm.id) {
-                fetch("update_alarm.php", {
+                fetch("../update_alarm.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/x-www-form-urlencoded" },
                     body: `id=${alarm.id}`
