@@ -3,20 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O-Clock</title>
+    <title>O'Clock</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class ="bg-gray-100 min-h-screen p-6">
-    <h1 class ="text-3xl font-bold text-center mb-8">O-Clock :</h1>
-
-    <div class ="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <section id ="clock" class ="bg-white p-6 rounded-xl shadow"></section>
-        <section id ="timer" class ="bg-white p-6 rounded-xl shadow"></section>
-        <section id ="stopwatch" class ="bg-white p-6 rounded-xl shadow"></section>
-        <section id ="alarm" class ="bg-white p-6 rounded-xl shadow"></section>
+<body class="bg-gray-100 min-h-screen p-6">
+    <h1 class="text-3xl font-bold text-center mb-8">O'Clock :</h1>
+    <!-- réveil -->
+    <div id="alarm-alert"
+         class="hidden fixed top-5 right-5 bg-red-500 text-white px-4 py-3 rounded-lg shadow-lg">
     </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- horloge -->
+        <section class="bg-white p-6 rounded-xl shadow text-center">
+            <h2 class="text-xl font-semibold mb-4">Horloge</h2>
+            <p id="clock-time" class="text-4xl font-mono"></p>
+        </section>
+        <!-- minuteur -->
+        <section class="bg-white p-6 rounded-xl shadow">
+            <h2 class="text-xl font-semibold mb-4">Minuteur</h2>
+            <p id="timer-display" class="text-3xl font-mono text-center mb-4">00:00</p>
+            <div class="flex gap-2 mb-4">
+                <button id="timer-minus" class="bg-gray-200 px-4 py-2 rounded">-</button>
+                <input id="timer-input" type="number" min="0"
+                       class="border rounded px-3 py-2 w-full"
+                       placeholder="Temps (secondes)">
+                <button id="timer-plus" class="bg-gray-200 px-4 py-2 rounded">+</button>
+            </div>
+            <button id="timer-toggle"class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+                Start / Stop
+            </button>
+        </section>
+        <!-- chronomètre -->
+        <section class="bg-white p-6 rounded-xl shadow">
+            <h2 class="text-xl font-semibold mb-4">Chronomètre</h2>
 
-    <script src ="./js/main.js"></script>
-        
+            <p id="stopwatch-display" class="text-3xl font-mono text-center mb-4">00:00.000</p>
+
+            <div class="flex gap-2 mb-4">
+                <button id="stopwatch-toggle" class="bg-green-500 text-white px-4 py-2 rounded">Start / Stop</button>
+                <button id="stopwatch-lap" class="bg-yellow-400 px-4 py-2 rounded">Tour</button>
+                <button id="stopwatch-reset"class="bg-red-500 text-white px-4 py-2 rounded">Reset</button>
+            </div>
+            <ul id="laps" class="text-sm max-h-32 overflow-y-auto"></ul>
+        </section>
+        <!-- réveil -->
+        <section class="bg-white p-6 rounded-xl shadow">
+            <h2 class="text-xl font-semibold mb-4">Réveil</h2>
+
+            <input id="alarm-time" type="time" class="border rounded px-3 py-2 w-full mb-2">
+            <input id="alarm-message" type="text" class="border rounded px-3 py-2 w-full mb-3" placeholder="Message du réveil">
+
+            <button id="add-alarm" class="w-full bg-purple-500 text-white py-2 rounded hover:bg-purple-600">
+                Ajouter une alarme
+            </button>
+            <ul id="alarm-list" class="mt-4 text-sm"></ul>
+        </section>
+    </div>
+    <script src="./js/clock.js"></script>
+    <script src="./js/timer.js"></script>
+    <script src="./js/stopwatch.js"></script>
+    <script src="./js/alarm.js"></script>
 </body>
 </html>
