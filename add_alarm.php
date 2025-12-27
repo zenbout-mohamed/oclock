@@ -1,5 +1,4 @@
-<?php
-include 'db.php';
+<?php include 'db.php';
 
 $time = $_POST['time'] ?? null;
 $message = $_POST['message'] ?? null;
