@@ -1,8 +1,11 @@
 let stopwatchTime = 0;
 let stopwatchInterval = null;
 
-const display = document.getElementById("stopwatch-display");
+const stopwatchDisplay = document.getElementById("stopwatch-display");
 const lapsList = document.getElementById("laps");
+const stopwatchToggle = document.getElementById("stopwatch-toggle");
+const stopwatchLap = document.getElementById("stopwatch-lap");
+const stopwatchReset = document.getElementById("stopwatch-reset");
 
 function formatStopwatch(ms) {
     const minutes = String(Math.floor(ms / 60000)).padStart(2, "0");
@@ -12,10 +15,10 @@ function formatStopwatch(ms) {
 }
 
 function updateStopwatch() {
-    display.textContent = formatStopwatch(stopwatchTime);
+    stopwatchDisplay.textContent = formatStopwatch(stopwatchTime);
 }
 
-document.getElementById("stopwatch-toggle").addEventListener("click", () => {
+stopwatchToggle.addEventListener("click", () => {
     if (stopwatchInterval) {
         clearInterval(stopwatchInterval);
         stopwatchInterval = null;
@@ -28,7 +31,7 @@ document.getElementById("stopwatch-toggle").addEventListener("click", () => {
     }, 10);
 });
 
-document.getElementById("stopwatch-lap").addEventListener("click", () => {
+stopwatchLap.addEventListener("click", () => {
     if (!stopwatchInterval) return;
 
     const li = document.createElement("li");
@@ -37,7 +40,7 @@ document.getElementById("stopwatch-lap").addEventListener("click", () => {
     lapsList.appendChild(li);
 });
 
-document.getElementById("stopwatch-reset").addEventListener("click", () => {
+stopwatchReset.addEventListener("click", () => {
     clearInterval(stopwatchInterval);
     stopwatchInterval = null;
     stopwatchTime = 0;

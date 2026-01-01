@@ -1,15 +1,18 @@
+const clockDisplay = document.getElementById("clock-time");
+
 function updateClock() {
     const now = new Date();
-    // UTC + 1 (heure française)
+
+    // Heure française UTC +1
     const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-    const franceTime = new Date(utc + 3600000);
+    const parisTime = new Date(utc + 3600000);
 
-    const h = String(franceTime.getHours()).padStart(2, "0");
-    const m = String(franceTime.getMinutes()).padStart(2, "0");
-    const s = String(franceTime.getSeconds()).padStart(2, "0");
+    const hours = String(parisTime.getHours()).padStart(2, "0");
+    const minutes = String(parisTime.getMinutes()).padStart(2, "0");
+    const seconds = String(parisTime.getSeconds()).padStart(2, "0");
 
-    document.getElementById("clock-time").textContent = `${h}:${m}:${s}`;
+    clockDisplay.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
-updateClock();
 setInterval(updateClock, 1000);
+updateClock();

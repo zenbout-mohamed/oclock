@@ -1,45 +1,52 @@
-let remainingTime = 0;
+let timerSeconds = 0;
 let timerInterval = null;
 
-const display = document.getElementById("timer-display");
-const input = document.getElementById("timer-input");
+const timerDisplay = document.getElementById("timer-display");
+const timerInput = document.getElementById("timer-input");
+const timerPlus = document.getElementById("timer-plus");
+const timerMinus = document.getElementById("timer-minus");
+const timerToggle = document.getElementById("timer-toggle");
 
 function updateTimerDisplay() {
-    const minutes = String(Math.floor(remainingTime / 60)).padStart(2, "0");
-    const seconds = String(remainingTime % 60).padStart(2, "0");
-    display.textContent = `${minutes}:${seconds}`;
+    const minutes = String(Math.floor(timerSeconds / 60)).padStart(2, "0");
+    const seconds = String(timerSeconds % 60).padStart(2, "0");
+    timerDisplay.textContent = `${minutes}:${seconds}`;
 }
 
-document.getElementById("timer-plus").addEventListener("click", () => {
-    remainingTime += 60;
+timerPlus.addEventListener("click", () => {
+    timerSeconds += 60;
     updateTimerDisplay();
 });
 
-document.getElementById("timer-minus").addEventListener("click", () => {
-    remainingTime = Math.max(0, remainingTime - 60);
+timerMinus.addEventListener("click", () => {
+    timerSeconds = Math.max(0, timerSeconds - 60);
     updateTimerDisplay();
 });
 
-input.addEventListener("change", () => {
-    remainingTime = Number(input.value);
+timerInput.addEventListener("change", () => {
+    timerSeconds = Math.max(0, parseInt(timerInput.value || 0));
     updateTimerDisplay();
 });
 
-document.getElementById("timer-toggle").addEventListener("click", () => {
+timerToggle.addEventListener("click", () => {
     if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
         return;
     }
 
+    if (timerSeconds <= 0) return;
+
     timerInterval = setInterval(() => {
-        if (remainingTime <= 0) {
+        timerSeconds--;
+        updateTimerDisplay();
+
+        if (timerSeconds <= 0) {
             clearInterval(timerInterval);
             timerInterval = null;
-            alert("Temps écoulé !");
-            return;
+            alert("⏰ Temps écoulé !");
         }
-        remainingTime--;
-        updateTimerDisplay();
     }, 1000);
 });
+
+updateTimerDisplay();
